@@ -3,188 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#2B1005">
+<meta name="theme-color" content="#3D1A0A">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Blooming Café — Loyalty</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
- 
+
 :root {
-  --amber:        #C4832A;
-  --amber-light:  #D9973E;
-  --amber-pale:   #F0C878;
-  --amber-dim:    #8B5A1A;
-  --dark:         #F5E6D3;
-  --dark-2:       #3D1A0A;
-  --dark-3:       #4E220D;
-  --surface:      #3D1A0A;
-  --surface-2:    #5C2D0E;
-  --text:         #F5E6D3;
-  --text-muted:   #C4A882;
-  --text-dim:     #8B6B45;
-  --cream-pop:    #F2E0C8;
-  --radius:       16px;
-  --radius-sm:    10px;
+  --amber:      #C4832A;
+  --amber-pale: #F0C878;
+  --amber-dim:  #8B5A1A;
+  --dark:       #F5E6D3;
+  --dark-2:     #3D1A0A;
+  --dark-3:     #4E220D;
+  --surface:    #3D1A0A;
+  --text:       #F5E6D3;
+  --text-muted: #C4A882;
+  --text-dim:   #8B6B45;
+  --radius:     16px;
+  --radius-sm:  10px;
 }
- 
+
 html, body {
-  min-height: 100%;
-  min-height: 100dvh;
+  min-height: 100%; min-height: 100dvh;
   background: var(--dark);
   font-family: 'Jost', sans-serif;
   color: var(--text);
   overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
 }
- 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0;
-}
- 
-/* ── APP WRAPPER ───────────────────────────── */
+
+body { display: flex; align-items: center; justify-content: center; padding: 24px 20px; }
+
 .app {
-  width: 100%;
-  max-width: 420px;
-  min-height: 100vh;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
+  width: 100%; max-width: 400px;
+  display: flex; flex-direction: column; align-items: center;
   position: relative;
 }
- 
-/* Ambient glow behind logo */
+
+/* Glow */
 .app::before {
   content: '';
-  position: fixed;
-  top: -100px; left: 50%;
+  position: fixed; top: -80px; left: 50%;
   transform: translateX(-50%);
-  width: 360px; height: 360px;
+  width: 340px; height: 340px;
   background: radial-gradient(circle, rgba(92,45,14,0.55) 0%, transparent 65%);
-  pointer-events: none;
-  z-index: 0;
+  pointer-events: none; z-index: 0;
 }
- 
-/* ── HEADER ────────────────────────────────── */
-.header {
-  padding: 52px 28px 28px;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  flex-shrink: 0;
-}
- 
+
+/* ── HEADER ── */
+.header { text-align: center; margin-bottom: 32px; position: relative; z-index: 1; }
+
 .logo-ring {
-  width: 96px; height: 96px;
-  border-radius: 50%;
+  width: 96px; height: 96px; border-radius: 50%;
   border: 1.5px solid rgba(92,45,14,0.5);
   background: rgba(92,45,14,0.08);
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px;
+  margin: 0 auto 18px;
 }
 .logo-ring img {
-  width: 74px; height: 74px;
-  object-fit: contain;
+  width: 74px; height: 74px; object-fit: contain;
   filter: brightness(0.3) sepia(1) saturate(3) hue-rotate(5deg);
 }
- 
+
 .brand-name {
   font-family: 'Cormorant Garamond', serif;
   font-size: 28px; font-weight: 600;
-  letter-spacing: 0.07em;
-  color: var(--dark-2);
-  line-height: 1;
+  letter-spacing: 0.07em; color: var(--dark-2); line-height: 1;
 }
 .brand-sub {
-  font-size: 10px; font-weight: 400;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--amber-dim);
-  margin-top: 7px;
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--amber-dim); margin-top: 7px;
 }
 .divider {
   width: 36px; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(196,131,42,0.4), transparent);
-  margin: 18px auto 0;
+  margin: 16px auto 0;
 }
- 
-/* ── SCREEN AREA ───────────────────────────── */
-.screen-wrap {
-  flex: 1;
-  padding: 0 20px env(safe-area-inset-bottom, 36px);
-  position: relative;
-  z-index: 1;
-}
- 
-.screen { display: none; flex-direction: column; }
-.screen.active {
-  display: flex;
-  animation: fadeUp 0.32s ease both;
-}
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
- 
-/* ── STEP DOTS ─────────────────────────────── */
-.steps {
-  display: flex; align-items: center; justify-content: center;
-  gap: 7px; margin-bottom: 24px;
-}
-.step-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--dark-3);
-  transition: all 0.3s ease;
-}
-.step-dot.active {
-  background: var(--amber); width: 22px; border-radius: 4px;
-}
- 
-/* ── CARD ──────────────────────────────────── */
+
+/* ── CARD ── */
 .card {
+  width: 100%;
   background: var(--surface);
   border: 1px solid rgba(196,131,42,0.14);
   border-radius: var(--radius);
-  padding: 24px;
-  margin-bottom: 14px;
+  padding: 28px 24px;
+  position: relative; z-index: 1;
 }
- 
+
 .card-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 22px; font-weight: 600;
-  color: var(--amber-pale);
-  margin-bottom: 6px; line-height: 1.2;
+  color: var(--amber-pale); margin-bottom: 6px;
 }
-.card-subtitle {
-  font-size: 13px; color: var(--text-muted); line-height: 1.55;
+.card-sub {
+  font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 22px;
 }
- 
-/* ── INPUT ─────────────────────────────────── */
-.input-group { margin-top: 20px; }
+
+/* ── INPUT ── */
 .input-label {
   font-size: 10px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--text-muted); display: block; margin-bottom: 10px;
+  color: var(--text-muted); display: block; margin-bottom: 9px;
 }
- 
 .phone-row {
   display: flex; align-items: stretch;
   background: var(--dark-3);
   border: 1.5px solid rgba(196,131,42,0.22);
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  border-radius: var(--radius-sm); overflow: hidden;
+  transition: border-color 0.2s;
 }
-.phone-row:focus-within {
-  border-color: rgba(196,131,42,0.6);
-  box-shadow: 0 0 0 3px rgba(196,131,42,0.08);
-}
+.phone-row:focus-within { border-color: rgba(196,131,42,0.6); }
 .phone-prefix {
-  padding: 0 14px; font-size: 15px;
-  font-family: 'Jost', sans-serif; font-weight: 500;
+  padding: 0 14px; font-size: 15px; font-weight: 500;
   color: var(--amber);
   background: rgba(196,131,42,0.08);
   border-right: 1.5px solid rgba(196,131,42,0.18);
@@ -194,204 +126,128 @@ body {
 .phone-input {
   flex: 1; border: none; outline: none; background: transparent;
   padding: 0 16px; height: 56px;
-  font-size: 20px; font-family: 'Jost', sans-serif; font-weight: 400;
-  color: var(--text); letter-spacing: 0.05em;
-  min-width: 0;
+  font-size: 20px; font-family: 'Jost', sans-serif;
+  color: var(--text); letter-spacing: 0.05em; min-width: 0;
 }
 .phone-input::placeholder { color: var(--text-dim); font-size: 15px; }
- 
-/* ── BUTTONS ───────────────────────────────── */
-.btn-primary {
+
+/* ── BUTTON ── */
+.btn {
   width: 100%; height: 56px;
-  background: var(--amber);
-  border: none; border-radius: var(--radius-sm);
+  background: var(--amber); border: none;
+  border-radius: var(--radius-sm);
   font-family: 'Jost', sans-serif;
   font-size: 13px; font-weight: 500;
   letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--dark);
-  cursor: pointer; margin-top: 16px;
+  color: var(--dark-2); cursor: pointer; margin-top: 16px;
   transition: background 0.2s, transform 0.12s;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   touch-action: manipulation;
 }
-.btn-primary:active { transform: scale(0.975); background: var(--amber-light); }
-.btn-primary:disabled { background: var(--dark-3); color: var(--text-dim); cursor: not-allowed; }
- 
-.btn-outline {
-  width: 100%; height: 50px;
-  background: transparent;
-  border: 1px solid rgba(196,131,42,0.25);
-  border-radius: var(--radius-sm);
-  font-family: 'Jost', sans-serif;
-  font-size: 13px; font-weight: 400; letter-spacing: 0.06em;
-  color: var(--text-muted); cursor: pointer; margin-top: 10px;
-  transition: border-color 0.2s, color 0.2s;
-  touch-action: manipulation;
-}
-.btn-outline:active { border-color: var(--amber); color: var(--amber); }
- 
-/* ── SPINNER ───────────────────────────────── */
+.btn:active { transform: scale(0.975); background: #D9973E; }
+.btn:disabled { background: var(--dark-3); color: var(--text-dim); cursor: not-allowed; }
+
+/* ── SPINNER ── */
 .spinner {
   width: 20px; height: 20px;
-  border: 2px solid rgba(43,16,5,0.25);
-  border-top-color: var(--dark);
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite; display: none;
+  border: 2px solid rgba(61,26,10,0.25);
+  border-top-color: var(--dark-2);
+  border-radius: 50%; animation: spin 0.7s linear infinite; display: none;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
- 
-/* ── ERROR ─────────────────────────────────── */
+
+/* ── ERROR ── */
 .error-msg {
   font-size: 13px; color: #D06050;
   background: rgba(208,96,80,0.08);
   border-radius: var(--radius-sm);
-  padding: 10px 14px; margin-top: 10px;
-  display: none; line-height: 1.4;
+  padding: 10px 14px; margin-top: 10px; display: none;
 }
 .error-msg.show { display: block; }
- 
-/* ── PRIVACY NOTE ──────────────────────────── */
-.privacy-note {
-  font-size: 12px; color: var(--text-dim);
-  text-align: center; line-height: 1.6;
-  margin-top: 18px;
+
+/* ── SUCCESS ── */
+.success-screen {
+  width: 100%; text-align: center;
+  position: relative; z-index: 1;
+  display: none; flex-direction: column; align-items: center;
+  animation: fadeUp 0.35s ease both;
 }
- 
-/* ── ORDER CARDS ───────────────────────────── */
-.order-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 12px; margin-top: 20px;
+.success-screen.show { display: flex; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
-.order-card {
-  background: var(--dark-3);
-  border: 1.5px solid rgba(196,131,42,0.16);
-  border-radius: var(--radius);
-  padding: 24px 12px 20px;
-  text-align: center; cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, transform 0.15s;
-  display: flex; flex-direction: column; align-items: center; gap: 10px;
-  position: relative;
-  min-height: 148px; justify-content: center;
-  touch-action: manipulation; -webkit-user-select: none; user-select: none;
-}
-.order-card:active { transform: scale(0.965); }
-.order-card.selected {
-  border-color: var(--amber);
-  background: rgba(196,131,42,0.07);
-}
-.order-card.selected::after {
-  content: ''; position: absolute;
-  top: 0; left: 0; right: 0; height: 3px;
-  background: var(--amber);
-  border-radius: var(--radius) var(--radius) 0 0;
-}
- 
-.order-icon {
-  width: 54px; height: 54px; border-radius: 50%;
-  background: rgba(196,131,42,0.08);
-  display: flex; align-items: center; justify-content: center;
-}
-.order-icon svg { width: 30px; height: 30px; }
- 
-.order-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 19px; font-weight: 600; color: var(--text);
-}
-.order-pts {
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--amber);
-  background: rgba(196,131,42,0.12);
-  padding: 3px 10px; border-radius: 20px;
-}
- 
-/* ── SUCCESS SCREEN ────────────────────────── */
-.success-check {
-  width: 70px; height: 70px; border-radius: 50%;
+
+.check-ring {
+  width: 76px; height: 76px; border-radius: 50%;
   background: rgba(196,131,42,0.08);
   border: 1.5px solid rgba(196,131,42,0.3);
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 20px;
+  margin-bottom: 20px;
 }
-.success-check svg { width: 30px; height: 30px; }
- 
-.message-card {
-  background: var(--dark-3);
+.check-ring svg { width: 34px; height: 34px; }
+
+.success-msg {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 500; font-style: italic;
+  color: var(--text); line-height: 1.5;
+  background: var(--surface);
   border-left: 3px solid var(--amber);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 16px 18px; margin: 4px 0 16px;
+  padding: 16px 20px; margin-bottom: 20px;
+  width: 100%; text-align: left;
 }
-.message-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 18px; font-weight: 500; font-style: italic;
-  color: var(--text); line-height: 1.55;
-}
- 
-.stats-row {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px; margin-bottom: 12px;
-}
-.stat-box {
-  background: var(--dark-3);
-  border: 1px solid rgba(196,131,42,0.12);
-  border-radius: var(--radius-sm);
-  padding: 14px 8px; text-align: center;
-}
-.stat-val {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px; font-weight: 700;
-  color: var(--amber-pale); line-height: 1;
-}
-.stat-lbl {
-  font-size: 10px; font-weight: 500;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--text-dim); margin-top: 4px;
-}
- 
-.pts-banner {
-  background: var(--dark-3);
+
+.visit-badge {
+  background: var(--surface);
   border: 1px solid rgba(196,131,42,0.18);
-  border-radius: var(--radius-sm);
-  padding: 16px 20px;
-  display: flex; align-items: center; gap: 14px;
+  border-radius: var(--radius);
+  padding: 20px 28px;
+  margin-bottom: 20px; width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
 }
-.pts-star {
-  flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%;
-  background: rgba(196,131,42,0.1);
-  border: 1px solid rgba(196,131,42,0.25);
-  display: flex; align-items: center; justify-content: center;
-}
-.pts-star svg { width: 22px; height: 22px; }
-.pts-num {
+.visit-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 36px; font-weight: 700;
+  font-size: 56px; font-weight: 700;
   color: var(--amber-pale); line-height: 1;
 }
-.pts-sub {
-  font-size: 12px; color: var(--text-muted);
-  letter-spacing: 0.04em; margin-top: 2px;
+.visit-label {
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); line-height: 1.5;
 }
- 
-/* ── FOOTER ────────────────────────────────── */
+
+.btn-done {
+  width: 100%; height: 52px;
+  background: transparent;
+  border: 1px solid rgba(196,131,42,0.3);
+  border-radius: var(--radius-sm);
+  font-family: 'Jost', sans-serif;
+  font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  touch-action: manipulation;
+}
+.btn-done:active { border-color: var(--amber); color: var(--amber); }
+
+/* ── FOOTER ── */
 .footer {
-  text-align: center;
-  padding: 24px 0 10px;
-  position: relative; z-index: 1;
+  margin-top: 28px; text-align: center; position: relative; z-index: 1;
 }
 .footer-line {
   width: 30px; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(196,131,42,0.35), transparent);
-  margin: 0 auto 12px;
+  background: linear-gradient(90deg, transparent, rgba(196,131,42,0.3), transparent);
+  margin: 0 auto 10px;
 }
 .footer-text {
-  font-size: 10px; letter-spacing: 0.14em;
-  color: var(--text-dim); text-transform: uppercase;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-dim);
 }
- 
-/* ── CONFETTI ──────────────────────────────── */
+
+/* ── CONFETTI ── */
 .confetti-wrap {
-  position: fixed; top: 0; left: 0;
-  width: 100%; height: 100%;
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none; z-index: 999; overflow: hidden;
 }
 .confetti-piece {
@@ -407,7 +263,7 @@ body {
 </head>
 <body>
 <div class="app">
- 
+
   <!-- HEADER -->
   <div class="header">
     <div class="logo-ring">
@@ -429,263 +285,140 @@ body {
     <div class="brand-sub">Loyalty Programme</div>
     <div class="divider"></div>
   </div>
- 
-  <!-- SCREEN AREA -->
-  <div class="screen-wrap">
- 
-    <!-- SCREEN 1: PHONE -->
-    <div class="screen active" id="screen-phone">
-      <div class="steps">
-        <div class="step-dot active"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-      </div>
- 
-      <div class="card">
-        <div class="card-title">Welcome</div>
-        <div class="card-subtitle">Enter your phone number to track your visits and earn rewards.</div>
- 
-        <div class="input-group">
-          <label class="input-label" for="phone">Phone Number</label>
-          <div class="phone-row">
-            <div class="phone-prefix">+250</div>
-            <input
-              class="phone-input" id="phone"
-              type="tel" inputmode="numeric"
-              placeholder="7XX XXX XXX"
-              maxlength="12" autocomplete="tel"
-            >
-          </div>
-          <div class="error-msg" id="phone-error"></div>
-        </div>
- 
-        <button class="btn-primary" id="btn-phone" onclick="handlePhone()">
-          <span id="btn-phone-text">Continue</span>
-          <div class="spinner" id="btn-phone-spinner"></div>
-        </button>
-      </div>
- 
-      <div class="privacy-note">
-        Your number is only used for loyalty tracking.<br>We never share your data.
-      </div>
+
+  <!-- PHONE CARD -->
+  <div class="card" id="phone-card">
+    <div class="card-title">Enter your number</div>
+    <div class="card-sub">We'll record your visit and track how many times you've been here.</div>
+
+    <label class="input-label" for="phone">Phone Number</label>
+    <div class="phone-row">
+      <div class="phone-prefix">+250</div>
+      <input
+        class="phone-input" id="phone"
+        type="tel" inputmode="numeric"
+        placeholder="788 123 456"
+        maxlength="15" autocomplete="tel"
+      >
     </div>
- 
-    <!-- SCREEN 2: ORDER -->
-    <div class="screen" id="screen-order">
-      <div class="steps">
-        <div class="step-dot"></div>
-        <div class="step-dot active"></div>
-        <div class="step-dot"></div>
-      </div>
- 
-      <div class="card">
-        <div class="card-title">What did you order?</div>
-        <div class="card-subtitle">Select your purchase to earn points for this visit.</div>
- 
-        <div class="order-grid">
-          <div class="order-card" id="card-coffee" onclick="selectOrder('coffee')">
-            <div class="order-icon">
-              <svg viewBox="0 0 32 32" fill="none">
-                <path d="M6 13h14v9a4 4 0 01-4 4H10a4 4 0 01-4-4v-9z" stroke="#C4832A" stroke-width="1.6" fill="none"/>
-                <path d="M20 15h2a3 3 0 010 6h-2" stroke="#C4832A" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M10 9c0-1.5 1.5-1.5 1.5-3" stroke="#C4832A" stroke-width="1.4" stroke-linecap="round"/>
-                <path d="M15 9c0-1.5 1.5-1.5 1.5-3" stroke="#C4832A" stroke-width="1.4" stroke-linecap="round"/>
-                <line x1="6" y1="13" x2="20" y2="13" stroke="#C4832A" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="order-name">Coffee</div>
-            <div class="order-pts">+10 pts</div>
-          </div>
- 
-          <div class="order-card" id="card-snack" onclick="selectOrder('snack')">
-            <div class="order-icon">
-              <svg viewBox="0 0 32 32" fill="none">
-                <path d="M6 19c0-6 4-10 10-10s10 4 10 10" stroke="#C4832A" stroke-width="1.6" stroke-linecap="round"/>
-                <path d="M4 22c0-1.5.8-3 2-3 1.6 0 3 1.5 4.5 2 1.2.4 2.8.5 5.5.5s4.3-.1 5.5-.5C22.2 20.5 24 19 25.5 19c1.2 0 2 1.5 2 3s-1.5 3.5-11.5 3.5S4 23.5 4 22z" stroke="#C4832A" stroke-width="1.6" fill="none"/>
-                <path d="M13 16c.7-1.4 1.8-2 3-2s2.3.6 3 2" stroke="#C4832A" stroke-width="1.3" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="order-name">Snack</div>
-            <div class="order-pts">+5 pts</div>
-          </div>
-        </div>
- 
-        <div class="error-msg" id="order-error">Please select what you purchased.</div>
- 
-        <button class="btn-primary" id="btn-order" onclick="handleOrder()" style="margin-top:20px;">
-          <span id="btn-order-text">Confirm Order</span>
-          <div class="spinner" id="btn-order-spinner"></div>
-        </button>
-        <button class="btn-outline" onclick="goBack()">← Change Phone Number</button>
-      </div>
+    <div class="error-msg" id="phone-error"></div>
+
+    <button class="btn" id="btn-submit" onclick="handleSubmit()">
+      <span id="btn-text">Check In</span>
+      <div class="spinner" id="btn-spinner"></div>
+    </button>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="success-screen">
+    <div class="check-ring">
+      <svg viewBox="0 0 34 34" fill="none">
+        <path d="M6 17l7.5 7.5L28 9" stroke="#C4832A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
- 
-    <!-- SCREEN 3: SUCCESS -->
-    <div class="screen" id="screen-success">
-      <div class="steps">
-        <div class="step-dot"></div>
-        <div class="step-dot"></div>
-        <div class="step-dot active"></div>
-      </div>
- 
-      <div class="card">
-        <div class="success-check">
-          <svg viewBox="0 0 30 30" fill="none">
-            <path d="M5 15l6.5 6.5L25 8" stroke="#C4832A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
- 
-        <div class="message-card">
-          <div class="message-text" id="visit-message">Welcome to Blooming Café!</div>
-        </div>
- 
-        <div class="stats-row">
-          <div class="stat-box">
-            <div class="stat-val" id="stat-visit">1</div>
-            <div class="stat-lbl">Visits</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-val" id="stat-order-type">—</div>
-            <div class="stat-lbl">Order</div>
-          </div>
-          <div class="stat-box">
-            <div class="stat-val" id="stat-total-pts">0</div>
-            <div class="stat-lbl">Total pts</div>
-          </div>
-        </div>
- 
-        <div class="pts-banner">
-          <div class="pts-star">
-            <svg viewBox="0 0 22 22" fill="none">
-              <polygon points="11,2 13.8,7.6 20,8.5 15.5,12.9 16.6,19.1 11,16.2 5.4,19.1 6.5,12.9 2,8.5 8.2,7.6"
-                stroke="#C4832A" stroke-width="1.5" fill="rgba(196,131,42,0.2)" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div>
-            <div class="pts-num" id="stat-earned-pts">+10</div>
-            <div class="pts-sub">points earned this visit</div>
-          </div>
-        </div>
-      </div>
- 
-      <button class="btn-primary" onclick="resetApp()">Done</button>
+
+    <div class="success-msg" id="success-msg">Welcome to Blooming Café!</div>
+
+    <div class="visit-badge">
+      <div class="visit-num" id="visit-num">1</div>
+      <div class="visit-label">total<br>visits</div>
     </div>
- 
-    <!-- FOOTER -->
-    <div class="footer">
-      <div class="footer-line"></div>
-      <div class="footer-text">Blooming Café · Kigali, Rwanda</div>
-    </div>
- 
-  </div><!-- /screen-wrap -->
-</div><!-- /app -->
- 
+
+    <button class="btn-done" onclick="reset()">Done</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-line"></div>
+    <div class="footer-text">Blooming Café · Kigali, Rwanda</div>
+  </div>
+
+</div>
+
 <div class="confetti-wrap" id="confetti"></div>
- 
+
 <script>
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzYC7467AAvOpMqwkszDjeh38SuL1IwYpmrLufYFbQiVXEvYrpjg0MoPiBgf-4SamEg/exec';
- 
-let currentPhone = '';
-let currentOrder = '';
- 
+// ── Paste your Apps Script /exec URL here ──────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby0b8kWiMVSIDgDaJLJMxU6Mbr1hmQm-Hdr3lkAH8yHyMpdP2z31W0TvAFO3GaQo19j/exec';
+
 document.getElementById('phone').addEventListener('keydown', e => {
-  if (e.key === 'Enter') handlePhone();
+  if (e.key === 'Enter') handleSubmit();
 });
- 
-async function handlePhone() {
-  const raw = document.getElementById('phone').value.trim().replace(/\s/g, '');
+
+// ── JSONP — bypasses CORS completely ───────────────────────
+function jsonp(url) {
+  return new Promise((resolve, reject) => {
+    const cb     = '_cb_' + Date.now();
+    const script = document.createElement('script');
+    const timer  = setTimeout(() => { cleanup(); reject(new Error('Timeout')); }, 15000);
+
+    window[cb] = data => { cleanup(); resolve(data); };
+
+    function cleanup() {
+      clearTimeout(timer);
+      delete window[cb];
+      if (script.parentNode) script.parentNode.removeChild(script);
+    }
+
+    script.onerror = () => { cleanup(); reject(new Error('Network error')); };
+    script.src = url + '&callback=' + cb;
+    document.head.appendChild(script);
+  });
+}
+
+// ── SUBMIT ─────────────────────────────────────────────────
+async function handleSubmit() {
+  const raw = document.getElementById('phone').value.trim();
   const err = document.getElementById('phone-error');
   err.classList.remove('show');
- 
-  if (!raw || raw.length < 9 || !/^\d+$/.test(raw)) {
-    err.textContent = 'Please enter a valid 9-digit phone number.';
+
+  // Clean: strip spaces, dashes, leading +250 or 0
+  const cleaned = raw.replace(/[\s\-\(\)]/g, '').replace(/^(\+?250|0)/, '');
+
+  if (!cleaned || cleaned.length < 8 || !/^\d+$/.test(cleaned)) {
+    err.textContent = 'Please enter a valid number, e.g. 788 123 456';
     err.classList.add('show');
     return;
   }
- 
-  currentPhone = '+250' + raw.replace(/^0+/, '');
-  setLoading('phone', true);
- 
+
+  const phone = '+250' + cleaned;
+  setLoading(true);
+
   try {
-    const res = await fetch(`${APPS_SCRIPT_URL}?action=checkPhone&phone=${encodeURIComponent(currentPhone)}`);
-    const data = await res.json();
+    const url  = `${APPS_SCRIPT_URL}?action=logVisit&phone=${encodeURIComponent(phone)}`;
+    const data = await jsonp(url);
+
     if (data.success) {
-      showScreen('screen-order');
+      document.getElementById('visit-num').textContent  = data.visitCount;
+      document.getElementById('success-msg').textContent = data.message;
+      document.getElementById('phone-card').style.display = 'none';
+      document.getElementById('success-screen').classList.add('show');
+      launchConfetti();
     } else {
-      throw new Error(data.error || 'Server error');
+      err.textContent = data.error || 'Something went wrong. Try again.';
+      err.classList.add('show');
     }
   } catch {
     err.textContent = 'Connection error. Please try again.';
     err.classList.add('show');
   } finally {
-    setLoading('phone', false);
+    setLoading(false);
   }
 }
- 
-function selectOrder(type) {
-  currentOrder = type;
-  document.getElementById('card-coffee').classList.toggle('selected', type === 'coffee');
-  document.getElementById('card-snack').classList.toggle('selected', type === 'snack');
-  document.getElementById('order-error').classList.remove('show');
-}
- 
-async function handleOrder() {
-  if (!currentOrder) {
-    document.getElementById('order-error').classList.add('show');
-    return;
-  }
-  setLoading('order', true);
- 
-  try {
-    const res = await fetch(`${APPS_SCRIPT_URL}?action=logVisit&phone=${encodeURIComponent(currentPhone)}&order=${currentOrder}`);
-    const data = await res.json();
-    if (data.success) {
-      document.getElementById('visit-message').textContent = data.message;
-      document.getElementById('stat-visit').textContent = data.visitCount;
-      document.getElementById('stat-order-type').textContent = currentOrder === 'coffee' ? 'Coffee' : 'Snack';
-      document.getElementById('stat-total-pts').textContent = data.totalPoints;
-      document.getElementById('stat-earned-pts').textContent = '+' + data.pointsEarned;
-      showScreen('screen-success');
-      launchConfetti();
-    } else {
-      throw new Error(data.error || 'Could not save');
-    }
-  } catch {
-    document.getElementById('order-error').textContent = 'Could not save visit. Please try again.';
-    document.getElementById('order-error').classList.add('show');
-  } finally {
-    setLoading('order', false);
-  }
-}
- 
-function resetApp() {
-  currentPhone = ''; currentOrder = '';
+
+function reset() {
   document.getElementById('phone').value = '';
   document.getElementById('phone-error').classList.remove('show');
-  document.getElementById('card-coffee').classList.remove('selected');
-  document.getElementById('card-snack').classList.remove('selected');
-  showScreen('screen-phone');
+  document.getElementById('success-screen').classList.remove('show');
+  document.getElementById('phone-card').style.display = 'block';
 }
- 
-function goBack() {
-  currentOrder = '';
-  document.getElementById('card-coffee').classList.remove('selected');
-  document.getElementById('card-snack').classList.remove('selected');
-  showScreen('screen-phone');
+
+function setLoading(on) {
+  document.getElementById('btn-submit').disabled = on;
+  document.getElementById('btn-text').style.display    = on ? 'none'  : 'block';
+  document.getElementById('btn-spinner').style.display = on ? 'block' : 'none';
 }
- 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
- 
-function setLoading(btn, on) {
-  document.getElementById('btn-' + btn).disabled = on;
-  document.getElementById('btn-' + btn + '-text').style.display = on ? 'none' : 'block';
-  document.getElementById('btn-' + btn + '-spinner').style.display = on ? 'block' : 'none';
-}
- 
+
 function launchConfetti() {
   const wrap = document.getElementById('confetti');
   wrap.innerHTML = '';
